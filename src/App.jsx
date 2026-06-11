@@ -21,26 +21,26 @@ import {
   WandSparkles,
 } from 'lucide-react'
 
-const featuredImages = [
+const portfolioSlides = [
   {
-    src: '/assets/cactus-glass.jpeg',
-    title: 'Custom drinkware',
-    tag: 'Product styling',
+    src: '/assets/pdf-pages/page-07.png',
+    title: 'Photography',
+    tag: 'Visual direction',
   },
   {
-    src: '/assets/margs-sweatshirts.jpeg',
-    title: 'MARGS merch',
-    tag: 'Color + apparel',
+    src: '/assets/pdf-pages/page-08.png',
+    title: 'Good Ode',
+    tag: 'Brand system',
   },
   {
-    src: '/assets/named-glasses.jpeg',
-    title: 'Personalized sets',
-    tag: 'Social-ready details',
+    src: '/assets/pdf-pages/page-09.png',
+    title: 'Coastal Cafe',
+    tag: 'Concept branding',
   },
   {
-    src: '/assets/ghost-jars.jpeg',
-    title: 'Seasonal packaging',
-    tag: 'Playful concepts',
+    src: '/assets/pdf-pages/page-10.png',
+    title: 'Mock Instagram Feed',
+    tag: 'Content planning',
   },
 ]
 
@@ -51,7 +51,7 @@ const projects = [
     copy:
       'A better-for-you condiment concept built around clean ingredients, shelf appeal, and a retro-meets-modern personality.',
     image: '/assets/pdf-pages/page-08.png',
-    color: '#9bd3ef',
+    color: '#dcebf0',
     stats: ['Brand mockup', 'Color psychology', 'Social thumbnails'],
   },
   {
@@ -60,7 +60,7 @@ const projects = [
     copy:
       'A sunny cafe direction with breezy visuals, approachable voice, and a local coastal feel made for food, coffee, and casual discovery.',
     image: '/assets/pdf-pages/page-09.png',
-    color: '#f9a36f',
+    color: '#ead2bd',
     stats: ['Naming energy', 'Visual tone', 'Hospitality brand'],
   },
   {
@@ -69,7 +69,7 @@ const projects = [
     copy:
       'A set of feed concepts for food and beverage moments, designed to feel scroll-stopping without losing clarity.',
     image: '/assets/pdf-pages/page-10.png',
-    color: '#f5dc55',
+    color: '#eee2b9',
     stats: ['Feed planning', 'Visual rhythm', 'Campaign ideas'],
   },
 ]
@@ -176,7 +176,7 @@ function Hero() {
         </div>
 
         <div className="relative min-h-[540px]">
-          <div className="absolute right-0 top-2 w-[78%] overflow-hidden rounded-[2rem] border-2 border-[#191816] bg-[#f7d94c] p-3 shadow-[10px_10px_0_#191816]">
+          <div className="absolute right-0 top-2 w-[78%] overflow-hidden rounded-[2rem] border-2 border-[#191816] bg-[#f3df8f] p-3 shadow-[10px_10px_0_#191816]">
             <img
               src="/assets/pdf-pages/page-01.png"
               alt="Aspen McNealey portfolio cover"
@@ -184,12 +184,14 @@ function Hero() {
             />
           </div>
           <div className="float-card absolute bottom-12 left-0 w-[58%] overflow-hidden rounded-3xl border-2 border-[#191816] bg-white p-3 shadow-[8px_8px_0_#191816]">
-            <img src="/assets/mith-glass.jpeg" alt="Custom glass design by Aspen" className="h-72 w-full rounded-2xl object-cover" />
+            <div className="slide-frame h-72 rounded-2xl">
+              <img src="/assets/pdf-pages/page-08.png" alt="Good Ode branding slide" className="h-full w-full object-contain" />
+            </div>
           </div>
-          <div className="absolute left-4 top-16 rounded-full border-2 border-[#191816] bg-[#ff6cae] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
+          <div className="absolute left-4 top-16 rounded-full border-2 border-[#191816] bg-[#e9a0bd] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
             branding
           </div>
-          <div className="absolute bottom-1 right-6 rounded-full border-2 border-[#191816] bg-[#9bd3ef] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
+          <div className="absolute bottom-1 right-6 rounded-full border-2 border-[#191816] bg-[#b9d5de] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
             content
           </div>
         </div>
@@ -215,17 +217,17 @@ function Hero() {
 
 function Work() {
   return (
-    <section id="work" className="bg-[#fff9ef] px-4 py-20 sm:px-6 lg:px-8">
+    <section id="work" className="bg-[#fbf3e4] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-[#f7d94c] px-4 py-2 text-sm font-black uppercase">
+            <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-[#efe1ad] px-4 py-2 text-sm font-black uppercase">
               Selected work
             </p>
             <h2 className="display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.9]">Color, copy, click.</h2>
           </div>
           <p className="max-w-2xl text-lg font-semibold leading-8 text-[#4c433b]">
-            The portfolio mixes branding concepts, styled product photography, and campaign-ready content. It feels casual on purpose, but the thinking is structured: audience, shelf appeal, mood, and momentum.
+            The portfolio mixes branding concepts, visual direction, and campaign-ready content. It feels casual on purpose, but the thinking is structured: audience, shelf appeal, mood, and momentum.
           </p>
         </div>
 
@@ -235,11 +237,11 @@ function Work() {
               key={project.title}
               className={`group rounded-[1.75rem] border-2 border-[#191816] bg-white p-4 shadow-[7px_7px_0_#191816] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#191816] ${index === 1 ? 'lg:mt-10' : ''}`}
             >
-              <div className="relative overflow-hidden rounded-[1.25rem] border-2 border-[#191816]" style={{ backgroundColor: project.color }}>
+              <div className="slide-frame relative overflow-hidden rounded-[1.25rem] border-2 border-[#191816]" style={{ backgroundColor: project.color }}>
                 <img
                   src={project.image}
                   alt={`${project.title} portfolio page`}
-                  className="aspect-[4/3] w-full object-cover object-left transition duration-500 group-hover:scale-105"
+                  className="aspect-[4/3] w-full object-contain p-2 transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="pt-5">
@@ -262,22 +264,38 @@ function Work() {
   )
 }
 
-function ImageStrip() {
+function PortfolioSlideWall() {
   return (
-    <section className="border-y-2 border-[#191816] bg-[#9bd3ef] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-4">
-        {featuredImages.map((image, index) => (
+    <section className="border-y-2 border-[#191816] bg-[#e6ddd0] px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-white px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_#191816]">
+              Portfolio slides
+            </p>
+            <h2 className="display text-[clamp(2.4rem,5vw,4.8rem)] leading-[0.9]">A closer look.</h2>
+          </div>
+          <p className="max-w-xl text-base font-semibold leading-7 text-[#51473f]">
+            Brand boards, campaign ideas, and content concepts presented with the same playful polish as the full portfolio.
+          </p>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-4">
+        {portfolioSlides.map((image, index) => (
           <figure
             key={image.src}
             className={`rounded-[1.5rem] border-2 border-[#191816] bg-white p-3 shadow-[6px_6px_0_#191816] ${index % 2 === 0 ? 'tilt-left' : 'tilt-right'}`}
           >
-            <img src={image.src} alt={image.title} className="aspect-[4/5] w-full rounded-[1rem] object-cover" />
+            <div className="slide-frame aspect-[4/5] w-full rounded-[1rem]">
+              <img src={image.src} alt={image.title} className="h-full w-full object-contain p-2" />
+            </div>
             <figcaption className="flex min-h-20 flex-col justify-center px-1 pt-3">
               <span className="text-xs font-black uppercase text-[#13707f]">{image.tag}</span>
               <span className="text-lg font-black">{image.title}</span>
             </figcaption>
           </figure>
         ))}
+        </div>
       </div>
     </section>
   )
@@ -330,14 +348,14 @@ function Toolkit() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[#fff9ef] bg-[#13707f] px-4 py-2 text-sm font-black uppercase">
+            <p className="mb-3 inline-flex rounded-full border-2 border-[#fff9ef] bg-[#2f6f79] px-4 py-2 text-sm font-black uppercase">
               Toolkit
             </p>
             <h2 className="display text-[clamp(2.7rem,7vw,5.8rem)] leading-[0.9]">Skills with sparkle.</h2>
           </div>
           <a
             href="mailto:aspenmcnealey@gmail.com"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#fff9ef] bg-[#f7d94c] px-6 font-black uppercase text-[#191816] transition hover:-translate-y-0.5"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#fff9ef] bg-[#efe1ad] px-6 font-black uppercase text-[#191816] transition hover:-translate-y-0.5"
           >
             Start a conversation
             <ArrowRight size={18} />
@@ -349,7 +367,7 @@ function Toolkit() {
             const Icon = item.icon
             return (
               <div key={item.title} className="rounded-[1.5rem] border-2 border-[#fff9ef] bg-[#27231e] p-6 transition hover:-translate-y-1">
-                <div className="mb-5 grid size-13 place-items-center rounded-full border-2 border-[#fff9ef] bg-[#ff6cae] text-[#191816]">
+                <div className="mb-5 grid size-13 place-items-center rounded-full border-2 border-[#fff9ef] bg-[#d99bb4] text-[#191816]">
                   <Icon size={24} />
                 </div>
                 <h3 className="text-xl font-black">{item.title}</h3>
@@ -369,7 +387,7 @@ function Experience() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-[#f7d94c] px-4 py-2 text-sm font-black uppercase">
+            <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-[#efe1ad] px-4 py-2 text-sm font-black uppercase">
               Experience
             </p>
             <h2 className="display text-[clamp(2.7rem,7vw,5.8rem)] leading-[0.9]">Real-world rhythm.</h2>
@@ -381,7 +399,7 @@ function Experience() {
           <div className="space-y-5">
             <div className="rounded-[1.5rem] border-2 border-[#191816] bg-white p-6 shadow-[7px_7px_0_#191816]">
               <div className="flex items-start gap-4">
-                <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-[#191816] bg-[#9bd3ef]">
+                <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-[#191816] bg-[#b9d5de]">
                   <GraduationCap size={26} />
                 </div>
                 <div>
@@ -399,7 +417,7 @@ function Experience() {
               return (
                 <div key={item.role} className="rounded-[1.5rem] border-2 border-[#191816] bg-white p-6 shadow-[7px_7px_0_#191816]">
                   <div className="flex items-start gap-4">
-                    <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-[#191816] bg-[#ff6cae]">
+                    <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-[#191816] bg-[#d99bb4]">
                       <Icon size={25} />
                     </div>
                     <div>
@@ -420,15 +438,15 @@ function Experience() {
 
 function Contact() {
   return (
-    <section id="contact" className="bg-[#f7d94c] px-4 py-20 sm:px-6 lg:px-8">
+    <section id="contact" className="bg-[#efe1ad] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 rounded-[2rem] border-2 border-[#191816] bg-[#fff9ef] p-6 shadow-[10px_10px_0_#191816] md:p-10 lg:grid-cols-[1fr_0.85fr]">
         <div>
           <div className="mb-5 flex flex-wrap gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#191816] bg-[#9bd3ef] px-4 py-2 font-black uppercase">
+            <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#191816] bg-[#b9d5de] px-4 py-2 font-black uppercase">
               <BadgeCheck size={17} />
               Open to creative roles
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#191816] bg-[#ff6cae] px-4 py-2 font-black uppercase">
+            <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#191816] bg-[#d99bb4] px-4 py-2 font-black uppercase">
               <HeartHandshake size={17} />
               Marketing + talent
             </span>
@@ -455,7 +473,7 @@ function Contact() {
           </a>
           <a href="tel:+15038845729" className="group rounded-[1.5rem] border-2 border-[#191816] bg-white p-5 shadow-[6px_6px_0_#191816] transition hover:-translate-y-1">
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-              <div className="grid size-13 place-items-center rounded-full border-2 border-[#191816] bg-[#ff6cae]">
+                <div className="grid size-13 place-items-center rounded-full border-2 border-[#191816] bg-[#d99bb4]">
                 <Phone size={24} />
               </div>
               <div>
@@ -505,7 +523,7 @@ function App() {
       <main>
         <Hero />
         <Work />
-        <ImageStrip />
+        <PortfolioSlideWall />
         <About />
         <Toolkit />
         <Experience />
