@@ -23,6 +23,16 @@ import {
 
 const portfolioSlides = [
   {
+    src: '/assets/pdf-pages/page-01.png',
+    title: 'Portfolio Cover',
+    tag: 'Intro',
+  },
+  {
+    src: '/assets/pdf-pages/page-03.png',
+    title: 'About Aspen',
+    tag: 'Personal story',
+  },
+  {
     src: '/assets/pdf-pages/page-07.png',
     title: 'Photography',
     tag: 'Visual direction',
@@ -42,6 +52,15 @@ const portfolioSlides = [
     title: 'Mock Instagram Feed',
     tag: 'Content planning',
   },
+]
+
+const capabilities = [
+  'Brand concepts',
+  'Content direction',
+  'Campaign ideas',
+  'Hospitality instincts',
+  'Talent-minded energy',
+  'Visual storytelling',
 ]
 
 const projects = [
@@ -112,10 +131,10 @@ function Nav() {
   const links = ['Work', 'About', 'Experience', 'Contact']
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b-2 border-[#191816] bg-[#fff9ef]/90 backdrop-blur">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#191816]/20 bg-[#fbf3e4]/88 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <a href="#top" className="group flex items-center gap-2 font-black uppercase tracking-normal">
-          <span className="grid size-10 place-items-center rounded-full border-2 border-[#191816] bg-[#f7d94c] transition-transform group-hover:rotate-12">
+          <span className="grid size-10 place-items-center rounded-full border-2 border-[#191816] bg-[#efe1ad] transition-transform group-hover:rotate-12">
             AM
           </span>
           <span className="hidden sm:inline">Aspen McNealey</span>
@@ -129,7 +148,7 @@ function Nav() {
         </div>
         <a
           href="mailto:aspenmcnealey@gmail.com"
-          className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-[#191816] bg-[#ff6cae] px-4 text-sm font-black uppercase text-[#191816] shadow-[4px_4px_0_#191816] transition hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#191816]"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-[#191816] bg-[#d99bb4] px-4 text-sm font-black uppercase text-[#191816] shadow-[4px_4px_0_#191816] transition hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#191816]"
         >
           <Mail size={17} />
           Hire Aspen
@@ -142,18 +161,18 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-24">
-      <div className="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+      <div className="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-12 px-4 py-10 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div className="relative z-10">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border-2 border-[#191816] bg-white px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_#191816]">
             <Sparkles size={16} />
-            Creative marketing + talent energy
+            Creative marketing portfolio
           </div>
-          <h1 className="display max-w-4xl text-[clamp(3.6rem,10vw,8.7rem)] leading-[0.86] text-[#191816]">
-            Not boring.
-            <span className="block text-[#13707f]">Still booked.</span>
+          <h1 className="display max-w-4xl text-[clamp(3.35rem,8.8vw,8rem)] leading-[0.88] text-[#191816]">
+            Smart work.
+            <span className="block text-[#2f6f79]">Playful pulse.</span>
           </h1>
           <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-[#35302b] sm:text-xl">
-            Aspen McNealey builds playful brand moments, styled content, and marketing ideas for teams that care about taste, people, and a good first impression.
+            Aspen McNealey turns brand ideas, content concepts, and people-first instincts into work that feels warm, memorable, and ready for a creative team.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -175,39 +194,36 @@ function Hero() {
           </div>
         </div>
 
-        <div className="relative min-h-[540px]">
-          <div className="absolute right-0 top-2 w-[78%] overflow-hidden rounded-[2rem] border-2 border-[#191816] bg-[#f3df8f] p-3 shadow-[10px_10px_0_#191816]">
-            <img
-              src="/assets/pdf-pages/page-01.png"
-              alt="Aspen McNealey portfolio cover"
-              className="h-[350px] w-full rounded-[1.35rem] object-cover object-center sm:h-[430px]"
-            />
-          </div>
-          <div className="float-card absolute bottom-12 left-0 w-[58%] overflow-hidden rounded-3xl border-2 border-[#191816] bg-white p-3 shadow-[8px_8px_0_#191816]">
-            <div className="slide-frame h-72 rounded-2xl">
-              <img src="/assets/pdf-pages/page-08.png" alt="Good Ode branding slide" className="h-full w-full object-contain" />
+        <div className="relative min-h-[560px]">
+          <div className="absolute right-0 top-0 w-[88%] overflow-hidden rounded-[2rem] border-2 border-[#191816] bg-[#efe1ad] p-3 shadow-[10px_10px_0_#191816]">
+            <div className="slide-frame aspect-video rounded-[1.35rem]">
+              <img
+                src="/assets/pdf-pages/page-01.png"
+                alt="Aspen McNealey portfolio cover"
+                className="h-full w-full object-contain"
+              />
             </div>
           </div>
-          <div className="absolute left-4 top-16 rounded-full border-2 border-[#191816] bg-[#e9a0bd] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
+          <div className="float-card absolute bottom-16 left-0 w-[68%] overflow-hidden rounded-3xl border-2 border-[#191816] bg-white p-3 shadow-[8px_8px_0_#191816]">
+            <div className="slide-frame aspect-video rounded-2xl">
+              <img src="/assets/pdf-pages/page-08.png" alt="Good Ode branding slide" className="h-full w-full object-contain p-1" />
+            </div>
+          </div>
+          <div className="absolute left-4 top-20 rounded-full border-2 border-[#191816] bg-[#d99bb4] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
             branding
           </div>
-          <div className="absolute bottom-1 right-6 rounded-full border-2 border-[#191816] bg-[#b9d5de] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
+          <div className="absolute bottom-6 right-6 rounded-full border-2 border-[#191816] bg-[#b9d5de] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
             content
           </div>
         </div>
       </div>
 
-      <div className="border-y-2 border-[#191816] bg-[#191816] py-3 text-[#fff9ef]">
-        <div className="marquee-track flex w-max gap-8 whitespace-nowrap text-lg font-black uppercase">
-          {Array.from({ length: 2 }).map((_, group) => (
-            <div key={group} className="flex gap-8">
-              <span>Branding</span>
-              <span>Photography</span>
-              <span>Marketing Concepts</span>
-              <span>Hospitality Energy</span>
-              <span>Talent Management Curious</span>
-              <span>Social Content</span>
-            </div>
+      <div className="border-y-2 border-[#191816] bg-[#e6ddd0] py-4 text-[#191816]">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6 lg:px-8">
+          {capabilities.map((item) => (
+            <span key={item} className="rounded-full border-2 border-[#191816] bg-[#fbf3e4] px-4 py-2 text-sm font-black uppercase">
+              {item}
+            </span>
           ))}
         </div>
       </div>
@@ -224,7 +240,7 @@ function Work() {
             <p className="mb-3 inline-flex rounded-full border-2 border-[#191816] bg-[#efe1ad] px-4 py-2 text-sm font-black uppercase">
               Selected work
             </p>
-            <h2 className="display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.9]">Color, copy, click.</h2>
+            <h2 className="display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.9]">Ideas with a point of view.</h2>
           </div>
           <p className="max-w-2xl text-lg font-semibold leading-8 text-[#4c433b]">
             The portfolio mixes branding concepts, visual direction, and campaign-ready content. It feels casual on purpose, but the thinking is structured: audience, shelf appeal, mood, and momentum.
@@ -235,13 +251,13 @@ function Work() {
           {projects.map((project, index) => (
             <article
               key={project.title}
-              className={`group rounded-[1.75rem] border-2 border-[#191816] bg-white p-4 shadow-[7px_7px_0_#191816] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#191816] ${index === 1 ? 'lg:mt-10' : ''}`}
+              className={`group rounded-[1.75rem] border-2 border-[#191816] bg-white p-4 shadow-[7px_7px_0_#191816] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#191816] ${index === 1 ? 'lg:mt-8' : ''}`}
             >
               <div className="slide-frame relative overflow-hidden rounded-[1.25rem] border-2 border-[#191816]" style={{ backgroundColor: project.color }}>
                 <img
                   src={project.image}
                   alt={`${project.title} portfolio page`}
-                  className="aspect-[4/3] w-full object-contain p-2 transition duration-500 group-hover:scale-[1.03]"
+                  className="aspect-video w-full object-contain p-2 transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="pt-5">
@@ -280,13 +296,13 @@ function PortfolioSlideWall() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {portfolioSlides.map((image, index) => (
           <figure
             key={image.src}
-            className={`rounded-[1.5rem] border-2 border-[#191816] bg-white p-3 shadow-[6px_6px_0_#191816] ${index % 2 === 0 ? 'tilt-left' : 'tilt-right'}`}
+            className={`rounded-[1.5rem] border-2 border-[#191816] bg-white p-3 shadow-[6px_6px_0_#191816] ${index % 3 === 1 ? 'xl:translate-y-6' : ''}`}
           >
-            <div className="slide-frame aspect-[4/5] w-full rounded-[1rem]">
+            <div className="slide-frame aspect-video w-full rounded-[1rem]">
               <img src={image.src} alt={image.title} className="h-full w-full object-contain p-2" />
             </div>
             <figcaption className="flex min-h-20 flex-col justify-center px-1 pt-3">
@@ -306,11 +322,15 @@ function About() {
     <section id="about" className="px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div className="relative">
-          <img
-            src="/assets/pdf-pages/page-03.png"
-            alt="About Aspen portfolio page"
-            className="w-full rounded-[2rem] border-2 border-[#191816] object-cover shadow-[10px_10px_0_#191816]"
-          />
+          <div className="rounded-[2rem] border-2 border-[#191816] bg-white p-3 shadow-[10px_10px_0_#191816]">
+            <div className="slide-frame aspect-video rounded-[1.35rem]">
+              <img
+                src="/assets/pdf-pages/page-03.png"
+                alt="About Aspen portfolio page"
+                className="h-full w-full object-contain"
+              />
+            </div>
+          </div>
           <div className="absolute -bottom-5 left-6 rounded-full border-2 border-[#191816] bg-[#ff6cae] px-5 py-3 font-black uppercase shadow-[5px_5px_0_#191816]">
             hi, Aspen here
           </div>
@@ -344,7 +364,7 @@ function About() {
 
 function Toolkit() {
   return (
-    <section className="bg-[#191816] px-4 py-20 text-[#fff9ef] sm:px-6 lg:px-8">
+    <section className="bg-[#24211d] px-4 py-20 text-[#fff9ef] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
@@ -366,7 +386,7 @@ function Toolkit() {
           {toolkit.map((item) => {
             const Icon = item.icon
             return (
-              <div key={item.title} className="rounded-[1.5rem] border-2 border-[#fff9ef] bg-[#27231e] p-6 transition hover:-translate-y-1">
+              <div key={item.title} className="rounded-[1.5rem] border-2 border-[#fff9ef] bg-[#302c26] p-6 transition hover:-translate-y-1">
                 <div className="mb-5 grid size-13 place-items-center rounded-full border-2 border-[#fff9ef] bg-[#d99bb4] text-[#191816]">
                   <Icon size={24} />
                 </div>
@@ -438,7 +458,7 @@ function Experience() {
 
 function Contact() {
   return (
-    <section id="contact" className="bg-[#efe1ad] px-4 py-20 sm:px-6 lg:px-8">
+    <section id="contact" className="bg-[#e6ddd0] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 rounded-[2rem] border-2 border-[#191816] bg-[#fff9ef] p-6 shadow-[10px_10px_0_#191816] md:p-10 lg:grid-cols-[1fr_0.85fr]">
         <div>
           <div className="mb-5 flex flex-wrap gap-3">

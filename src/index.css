@@ -44,20 +44,8 @@ section[id] {
   font-style: italic;
 }
 
-.marquee-track {
-  animation: marquee 28s linear infinite;
-}
-
 .float-card {
   animation: floaty 5s ease-in-out infinite;
-}
-
-.tilt-left {
-  transform: rotate(-2.5deg);
-}
-
-.tilt-right {
-  transform: rotate(2deg);
 }
 
 .sticker-shadow {
@@ -70,15 +58,6 @@ section[id] {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(251, 243, 228, 0.92)),
     #fbf3e4;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 @keyframes floaty {
