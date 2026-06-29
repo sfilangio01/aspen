@@ -4,6 +4,10 @@ export const owner = process.env.CONTENT_REPO_OWNER || 'sfilangio01'
 export const repo = process.env.CONTENT_REPO_NAME || 'aspen-assets'
 export const branch = process.env.CONTENT_REPO_BRANCH || 'main'
 export const contentPath = process.env.CONTENT_FILE_PATH || 'content/site.json'
+export const authOwner = process.env.AUTH_REPO_OWNER || owner
+export const authRepo = process.env.AUTH_REPO_NAME || 'aspen-admin'
+export const authBranch = process.env.AUTH_REPO_BRANCH || branch
+export const authPath = process.env.AUTH_FILE_PATH || 'auth/users.json'
 
 const apiBase = 'https://api.github.com'
 
@@ -50,25 +54,41 @@ export async function github(path, options = {}) {
   return data
 }
 
-export async function getFile(path) {
+export async function getRepoFile(repoOwner, repoName, repoBranch, path) {
   const encoded = path.split('/').map(encodeURIComponent).join('/')
-  return github(`/repos/${owner}/${repo}/contents/${encoded}?ref=${branch}`)
+  return github(`/repos/${repoOwner}/${repoName}/contents/${encoded}?ref=${repoBranch}`)
 }
 
-export async function putFile(path, contentBuffer, message) {
-  const existing = await getFile(path)
+export async function putRepoFile(repoOwner, repoName, repoBranch, path, contentBuffer, message) {
+  const existing = await getRepoFile(repoOwner, repoName, repoBranch, path)
   const encoded = path.split('/').map(encodeURIComponent).join('/')
   const body = {
     message,
-    branch,
+    branch: repoBranch,
     content: Buffer.from(contentBuffer).toString('base64'),
     ...(existing?.sha ? { sha: existing.sha } : {}),
   }
 
-  return github(`/repos/${owner}/${repo}/contents/${encoded}`, {
+  return github(`/repos/${repoOwner}/${repoName}/contents/${encoded}`, {
     method: 'PUT',
     body: JSON.stringify(body),
   })
+}
+
+export async function getFile(path) {
+  return getRepoFile(owner, repo, branch, path)
+}
+
+export async function putFile(path, contentBuffer, message) {
+  return putRepoFile(owner, repo, branch, path, contentBuffer, message)
+}
+
+export async function getAuthFile() {
+  return getRepoFile(authOwner, authRepo, authBranch, authPath)
+}
+
+export async function putAuthFile(contentBuffer, message) {
+  return putRepoFile(authOwner, authRepo, authBranch, authPath, contentBuffer, message)
 }
 
 export async function purgeCdn(path) {
@@ -80,27 +100,36 @@ export function cdnUrl(path) {
   return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`
 }
 
-export function signSession() {
+export function signSession(user) {
   const secret = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD
   if (!secret) throw new Error('Missing ADMIN_SECRET')
-  const payload = Buffer.from(JSON.stringify({ exp: Date.now() + 1000 * 60 * 60 * 24 * 14 })).toString('base64url')
+  const payload = Buffer.from(JSON.stringify({
+    email: user.email,
+    name: user.name,
+    role: user.role || 'admin',
+    exp: Date.now() + 1000 * 60 * 60 * 24 * 14,
+  })).toString('base64url')
   const sig = crypto.createHmac('sha256', secret).update(payload).digest('base64url')
   return `${payload}.${sig}`
 }
 
-export function verifySession(req) {
+export function getSession(req) {
   const header = req.headers.authorization || ''
   const token = header.replace(/^Bearer\s+/i, '')
   const secret = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD
-  if (!token || !secret || !token.includes('.')) return false
+  if (!token || !secret || !token.includes('.')) return null
 
   const [payload, sig] = token.split('.')
   const expected = crypto.createHmac('sha256', secret).update(payload).digest('base64url')
-  if (sig.length !== expected.length) return false
-  if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return false
+  if (sig.length !== expected.length) return null
+  if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return null
 
   const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
-  return data.exp > Date.now()
+  return data.exp > Date.now() ? data : null
+}
+
+export function verifySession(req) {
+  return Boolean(getSession(req))
 }
 
 export function requireAuth(req, res) {

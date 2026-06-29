@@ -500,6 +500,7 @@ function PublicSite({ content }) {
 }
 
 function LoginForm({ onLogin }) {
+  const [email, setEmail] = useState('aspenmcnealey@gmail.com')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -511,7 +512,7 @@ function LoginForm({ onLogin }) {
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ email, password }),
     })
     const data = await response.json().catch(() => ({}))
     setLoading(false)
@@ -520,7 +521,7 @@ function LoginForm({ onLogin }) {
       return
     }
     window.localStorage.setItem('aspen-admin-token', data.token)
-    onLogin(data.token)
+    onLogin(data.token, data.user)
   }
 
   return (
@@ -531,13 +532,22 @@ function LoginForm({ onLogin }) {
         </div>
         <h1 className="display text-4xl leading-none">Aspen Admin</h1>
         <p className="mt-3 font-semibold text-[#51473f]">Login to update text, colors, portfolio images, and uploaded media.</p>
-        <label className="mt-6 block text-sm font-black uppercase">Password</label>
+        <label className="mt-6 block text-sm font-black uppercase">Email</label>
+        <input
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          type="email"
+          className="mt-2 min-h-12 w-full rounded-2xl border-2 border-[color:var(--text)] px-4 font-semibold"
+          autoComplete="email"
+          autoFocus
+        />
+        <label className="mt-4 block text-sm font-black uppercase">Password</label>
         <input
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           type="password"
           className="mt-2 min-h-12 w-full rounded-2xl border-2 border-[color:var(--text)] px-4 font-semibold"
-          autoFocus
+          autoComplete="current-password"
         />
         {error ? <p className="mt-3 font-bold text-red-700">{error}</p> : null}
         <button className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--accent)] px-6 font-black uppercase text-white shadow-[5px_5px_0_var(--text)]">
@@ -551,6 +561,7 @@ function LoginForm({ onLogin }) {
 
 function AdminPanel({ content, setContent }) {
   const [token, setToken] = useState(() => window.localStorage.getItem('aspen-admin-token') || '')
+  const [user, setUser] = useState(null)
   const [draft, setDraft] = useState(content)
   const [media, setMedia] = useState([])
   const [status, setStatus] = useState('')
@@ -562,13 +573,34 @@ function AdminPanel({ content, setContent }) {
 
   useEffect(() => {
     if (!token) return
+    fetch('/api/me', { headers: authHeaders(token) })
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error('Session expired'))))
+      .then((data) => setUser(data.user || null))
+      .catch(() => {
+        window.localStorage.removeItem('aspen-admin-token')
+        setToken('')
+        setUser(null)
+      })
+  }, [token])
+
+  useEffect(() => {
+    if (!token) return
     fetch('/api/files', { headers: authHeaders(token) })
       .then((response) => (response.ok ? response.json() : { files: [] }))
       .then((data) => setMedia(data.files || []))
       .catch(() => setMedia([]))
   }, [token])
 
-  if (!token) return <LoginForm onLogin={setToken} />
+  if (!token) {
+    return (
+      <LoginForm
+        onLogin={(nextToken, nextUser) => {
+          setToken(nextToken)
+          setUser(nextUser || null)
+        }}
+      />
+    )
+  }
 
   function update(path, value) {
     setDraft((current) => setIn(current, path, value))
@@ -595,6 +627,7 @@ function AdminPanel({ content, setContent }) {
   function logout() {
     window.localStorage.removeItem('aspen-admin-token')
     setToken('')
+    setUser(null)
   }
 
   return (
@@ -604,6 +637,7 @@ function AdminPanel({ content, setContent }) {
           <div>
             <p className="text-sm font-black uppercase text-[color:var(--accent)]">Authenticated editor</p>
             <h1 className="display text-4xl leading-none">Site controls</h1>
+            {user?.email ? <p className="mt-1 text-sm font-bold text-[#51473f]">Logged in as {user.email}</p> : null}
           </div>
           <div className="flex flex-wrap gap-3">
             <a href="/" className="inline-flex min-h-11 items-center rounded-full border-2 border-[color:var(--text)] bg-white px-5 font-black uppercase shadow-[4px_4px_0_var(--text)]">View site</a>
@@ -708,6 +742,10 @@ function AdminPanel({ content, setContent }) {
               <Field label="Contact body" value={draft.contact.body} rows={4} onChange={(value) => update(['contact', 'body'], value)} />
             </EditorSection>
 
+            <EditorSection title="Account">
+              <PasswordEditor token={token} user={user} />
+            </EditorSection>
+
             <EditorSection title="Media library">
               <div className="grid gap-3">
                 {media.length ? media.map((file) => (
@@ -725,6 +763,61 @@ function AdminPanel({ content, setContent }) {
   )
 }
 
+function PasswordEditor({ token, user }) {
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [status, setStatus] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  async function submit(event) {
+    event.preventDefault()
+    setStatus('')
+
+    if (newPassword.length < 10) {
+      setStatus('Use at least 10 characters for the new password.')
+      return
+    }
+    if (newPassword !== confirmPassword) {
+      setStatus('The new passwords do not match.')
+      return
+    }
+
+    setSaving(true)
+    const response = await fetch('/api/password', {
+      method: 'POST',
+      headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ currentPassword, newPassword }),
+    })
+    const data = await response.json().catch(() => ({}))
+    setSaving(false)
+
+    if (!response.ok) {
+      setStatus(data.error || 'Password update failed')
+      return
+    }
+
+    setCurrentPassword('')
+    setNewPassword('')
+    setConfirmPassword('')
+    setStatus('Password updated. Use the new password next time.')
+  }
+
+  return (
+    <form onSubmit={submit} className="space-y-4">
+      {user?.email ? <p className="font-bold text-[#51473f]">Account: {user.email}</p> : null}
+      <Field label="Current password" value={currentPassword} type="password" onChange={setCurrentPassword} />
+      <Field label="New password" value={newPassword} type="password" onChange={setNewPassword} />
+      <Field label="Confirm new password" value={confirmPassword} type="password" onChange={setConfirmPassword} />
+      {status ? <p className="rounded-2xl border-2 border-[color:var(--text)] bg-[color:var(--yellow)] px-4 py-3 font-bold">{status}</p> : null}
+      <button disabled={saving} className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--accent)] px-5 font-black uppercase text-white shadow-[4px_4px_0_var(--text)] disabled:opacity-60">
+        {saving ? <Loader2 className="animate-spin" size={18} /> : <Lock size={18} />}
+        Change password
+      </button>
+    </form>
+  )
+}
+
 function EditorSection({ title, children }) {
   return (
     <section className="rounded-[2rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[7px_7px_0_var(--text)]">
@@ -734,7 +827,7 @@ function EditorSection({ title, children }) {
   )
 }
 
-function Field({ label, value, onChange, rows = 1 }) {
+function Field({ label, value, onChange, rows = 1, type = 'text' }) {
   const inputClass = 'mt-2 w-full rounded-2xl border-2 border-[color:var(--text)] bg-white px-4 py-3 font-semibold'
   return (
     <label className="block">
@@ -742,7 +835,7 @@ function Field({ label, value, onChange, rows = 1 }) {
       {rows > 1 ? (
         <textarea className={inputClass} rows={rows} value={value || ''} onChange={(event) => onChange(event.target.value)} />
       ) : (
-        <input className={inputClass} value={value || ''} onChange={(event) => onChange(event.target.value)} />
+        <input type={type} className={inputClass} value={value || ''} onChange={(event) => onChange(event.target.value)} />
       )}
     </label>
   )

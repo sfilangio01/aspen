@@ -30,4 +30,4 @@ Editable content is stored in the public GitHub repository `sfilangio01/aspen-as
 - `content/site.json` stores text, colors, layout image selections, and section data.
 - `media/` stores images uploaded from the admin.
 
-The public site reads content through the Vercel API and image URLs are served through jsDelivr GitHub CDN. Server-side Vercel environment variables hold the admin password, session secret, and GitHub token; these are not committed to the repository.
+The public site reads content through the Vercel API and image URLs are served through jsDelivr GitHub CDN. Admin users are stored separately in the private GitHub repository `sfilangio01/aspen-admin` as salted password hashes, not plain text passwords. Server-side Vercel environment variables hold the session secret, GitHub token, and repository pointers; these are not committed to the repository.
