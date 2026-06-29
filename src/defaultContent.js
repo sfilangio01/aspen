@@ -19,6 +19,10 @@ export const DEFAULT_CONTENT = {
   navName: 'Aspen McNealey',
   contactEmail: 'aspenmcnealey@gmail.com',
   contactPhone: '503-884-5729',
+  socialLinks: {
+    linkedin: 'https://www.linkedin.com/in/aspenmcnealey/',
+    whatsapp: 'https://wa.me/15038845729',
+  },
   hero: {
     eyebrow: 'Creative marketing portfolio',
     titleTop: 'Smart work.',
@@ -127,7 +131,7 @@ export const DEFAULT_CONTENT = {
     title: "Let's make something people remember.",
     body: 'For creative teams, hospitality brands, agencies, or talent-led businesses that need someone upbeat, organized, and visually fluent.',
     location: 'Oregon roots, travel-ready mindset.',
-    social: 'Made for content, community, and culture.',
+    social: 'LinkedIn + WhatsApp ready for direct outreach.',
   },
 }
 

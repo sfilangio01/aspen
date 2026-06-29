@@ -10,9 +10,11 @@ import {
   HeartHandshake,
   ImagePlus,
   Instagram,
+  Linkedin,
   Loader2,
   Lock,
   Mail,
+  MessageCircle,
   MapPin,
   Megaphone,
   Palette,
@@ -36,7 +38,9 @@ const iconMap = {
   GraduationCap,
   HeartHandshake,
   Instagram,
+  Linkedin,
   Mail,
+  MessageCircle,
   MapPin,
   Megaphone,
   Palette,
@@ -398,6 +402,9 @@ function ExperienceCard({ icon, kicker, title, text, color }) {
 }
 
 function Contact({ content }) {
+  const phoneNumber = content.contactPhone.replace(/[^+\d]/g, '')
+  const whatsappUrl = content.socialLinks?.whatsapp || `https://wa.me/${phoneNumber.replace(/^\+/, '')}`
+
   return (
     <section id="contact" className="bg-[color:var(--soft)] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--surface)] p-6 shadow-[10px_10px_0_var(--text)] md:p-10 lg:grid-cols-[1fr_0.85fr]">
@@ -416,7 +423,9 @@ function Contact({ content }) {
 
         <div className="flex flex-col justify-center gap-4">
           <ContactCard href={`mailto:${content.contactEmail}`} icon="Mail" kicker="Email" text={content.contactEmail} color="accent" />
-          <ContactCard href={`tel:${content.contactPhone.replace(/[^+\d]/g, '')}`} icon="Phone" kicker="Phone" text={content.contactPhone} color="pink" />
+          <ContactCard href={`tel:${phoneNumber}`} icon="Phone" kicker="Phone" text={content.contactPhone} color="pink" />
+          <ContactCard href={content.socialLinks?.linkedin} icon="Linkedin" kicker="LinkedIn" text="linkedin.com/in/aspenmcnealey" color="blue" />
+          <ContactCard href={whatsappUrl} icon="MessageCircle" kicker="WhatsApp" text="Message Aspen directly" color="yellow" />
           <div className="grid gap-4 sm:grid-cols-2">
             <MiniCard icon="MapPin" text={content.contact.location} />
             <MiniCard icon="Instagram" text={content.contact.social} />
@@ -430,9 +439,9 @@ function Contact({ content }) {
 function ContactCard({ href, icon, kicker, text, color }) {
   const Icon = iconMap[icon]
   return (
-    <a href={href} className="group rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[6px_6px_0_var(--text)] transition hover:-translate-y-1">
+    <a href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noreferrer' : undefined} className="group rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[6px_6px_0_var(--text)] transition hover:-translate-y-1">
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        <div className={`grid size-13 place-items-center rounded-full border-2 border-[color:var(--text)] ${color === 'accent' ? 'bg-[color:var(--accent)] text-white' : 'bg-[color:var(--pink)]'}`}>
+        <div className={`grid size-13 place-items-center rounded-full border-2 border-[color:var(--text)] ${contactColorClass(color)}`}>
           <Icon size={24} />
         </div>
         <div>
@@ -442,6 +451,13 @@ function ContactCard({ href, icon, kicker, text, color }) {
       </div>
     </a>
   )
+}
+
+function contactColorClass(color) {
+  if (color === 'accent') return 'bg-[color:var(--accent)] text-white'
+  if (color === 'blue') return 'bg-[color:var(--blue)]'
+  if (color === 'yellow') return 'bg-[color:var(--yellow)]'
+  return 'bg-[color:var(--pink)]'
 }
 
 function MiniCard({ icon, text }) {
@@ -738,6 +754,8 @@ function AdminPanel({ content, setContent }) {
             <EditorSection title="Contact">
               <Field label="Email" value={draft.contactEmail} onChange={(value) => update(['contactEmail'], value)} />
               <Field label="Phone" value={draft.contactPhone} onChange={(value) => update(['contactPhone'], value)} />
+              <Field label="LinkedIn URL" value={draft.socialLinks.linkedin} onChange={(value) => update(['socialLinks', 'linkedin'], value)} />
+              <Field label="WhatsApp URL" value={draft.socialLinks.whatsapp} onChange={(value) => update(['socialLinks', 'whatsapp'], value)} />
               <Field label="Contact title" value={draft.contact.title} onChange={(value) => update(['contact', 'title'], value)} />
               <Field label="Contact body" value={draft.contact.body} rows={4} onChange={(value) => update(['contact', 'body'], value)} />
             </EditorSection>
