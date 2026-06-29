@@ -13,11 +13,7 @@
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    linear-gradient(90deg, rgba(25, 24, 22, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(25, 24, 22, 0.035) 1px, transparent 1px),
-    #fbf3e4;
-  background-size: 36px 36px;
+  background: #fbf3e4;
 }
 
 button,
@@ -50,6 +46,14 @@ section[id] {
 
 .sticker-shadow {
   box-shadow: 7px 7px 0 #191816;
+}
+
+.site-shell {
+  background:
+    linear-gradient(90deg, rgba(25, 24, 22, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(25, 24, 22, 0.035) 1px, transparent 1px),
+    var(--bg);
+  background-size: 36px 36px;
 }
 
 .slide-frame {
