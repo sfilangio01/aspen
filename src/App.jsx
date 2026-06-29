@@ -83,6 +83,39 @@ function styleFor(theme) {
   }
 }
 
+function sectionVars(colors = {}) {
+  return {
+    '--section-bg': colors.background,
+    '--section-panel': colors.panel || colors.card,
+    '--section-card': colors.card,
+    '--section-text': colors.text,
+    '--section-muted': colors.muted,
+    '--section-accent': colors.accent,
+    '--section-eyebrow': colors.eyebrow,
+    '--section-pill': colors.pill,
+    '--section-band': colors.band,
+    '--section-primary': colors.primaryButton,
+    '--section-secondary': colors.secondaryButton,
+    '--section-cover': colors.coverCard,
+    '--section-feature': colors.featureCard,
+    '--section-chip-one': colors.chipOne,
+    '--section-chip-two': colors.chipTwo,
+    '--section-image-card': colors.imageCard,
+    '--section-sticker': colors.sticker,
+    '--section-stat-card': colors.statCard,
+    '--section-icon': colors.icon,
+    '--section-cta': colors.cta,
+    '--section-education-icon': colors.educationIcon,
+    '--section-job-icon': colors.jobIcon,
+    '--section-badge-one': colors.badgeOne,
+    '--section-badge-two': colors.badgeTwo,
+    '--section-email-icon': colors.emailIcon,
+    '--section-phone-icon': colors.phoneIcon,
+    '--section-linkedin-icon': colors.linkedinIcon,
+    '--section-whatsapp-icon': colors.whatsappIcon,
+  }
+}
+
 function useSiteContent() {
   const [content, setContent] = useState(DEFAULT_CONTENT)
   const [loading, setLoading] = useState(true)
@@ -138,24 +171,25 @@ function Nav({ content }) {
 
 function Hero({ content }) {
   const { hero } = content
+  const colors = content.sectionStyles.hero
 
   return (
-    <section id="top" className="relative overflow-hidden pt-24">
+    <section id="top" className="relative overflow-hidden bg-[color:var(--section-bg)] pt-24 text-[color:var(--section-text)]" style={sectionVars(colors)}>
       <div className="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-12 px-4 py-10 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div className="relative z-10">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-white px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">
             <Sparkles size={16} />
             {hero.eyebrow}
           </div>
-          <h1 className="display max-w-4xl text-[clamp(3.35rem,8.8vw,8rem)] leading-[0.88] text-[color:var(--text)]">
+          <h1 className="display max-w-4xl text-[clamp(3.35rem,8.8vw,8rem)] leading-[0.88] text-[color:var(--section-text)]">
             {hero.titleTop}
-            <span className="block text-[color:var(--accent)]">{hero.titleAccent}</span>
+            <span className="block text-[color:var(--section-accent)]">{hero.titleAccent}</span>
           </h1>
-          <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-[#35302b] sm:text-xl">{hero.body}</p>
+          <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-[color:var(--section-muted)] sm:text-xl">{hero.body}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#work"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--accent)] px-6 font-black uppercase text-white shadow-[5px_5px_0_var(--text)] transition hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--text)]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-primary)] px-6 font-black uppercase text-white shadow-[5px_5px_0_var(--text)] transition hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--text)]"
             >
               {hero.primaryCta}
               <ArrowRight size={18} />
@@ -164,7 +198,7 @@ function Hero({ content }) {
               href="/aspen-mcnealey-marketing-portfolio.pdf"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-white px-6 font-black uppercase text-[color:var(--text)] shadow-[5px_5px_0_var(--text)] transition hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--text)]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-secondary)] px-6 font-black uppercase text-[color:var(--text)] shadow-[5px_5px_0_var(--text)] transition hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--text)]"
             >
               {hero.pdfCta}
               <Download size={18} />
@@ -173,12 +207,12 @@ function Hero({ content }) {
         </div>
 
         <div className="relative min-h-[560px]">
-          <div className="absolute right-0 top-0 w-[88%] overflow-hidden rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--yellow)] p-3 shadow-[10px_10px_0_var(--text)]">
+          <div className="absolute right-0 top-0 w-[88%] overflow-hidden rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--section-cover)] p-3 shadow-[10px_10px_0_var(--text)]">
             <div className="slide-frame aspect-video rounded-[1.35rem]">
               <img src={hero.coverImage} alt={`${content.navName} portfolio cover`} className="h-full w-full object-contain" />
             </div>
           </div>
-          <div className="float-card absolute bottom-16 left-0 w-[68%] overflow-hidden rounded-3xl border-2 border-[color:var(--text)] bg-white p-3 shadow-[8px_8px_0_var(--text)]">
+          <div className="float-card absolute bottom-16 left-0 w-[68%] overflow-hidden rounded-3xl border-2 border-[color:var(--text)] bg-[color:var(--section-feature)] p-3 shadow-[8px_8px_0_var(--text)]">
             <div className="slide-frame aspect-video rounded-2xl">
               <img src={hero.featureImage} alt="Featured portfolio slide" className="h-full w-full object-contain p-1" />
             </div>
@@ -187,7 +221,7 @@ function Hero({ content }) {
             <div
               key={chip}
               className={`absolute rounded-full border-2 border-[color:var(--text)] px-5 py-3 font-black uppercase shadow-[5px_5px_0_var(--text)] ${
-                index === 0 ? 'left-4 top-20 bg-[color:var(--pink)]' : 'bottom-6 right-6 bg-[color:var(--blue)]'
+                index === 0 ? 'left-4 top-20 bg-[color:var(--section-chip-one)]' : 'bottom-6 right-6 bg-[color:var(--section-chip-two)]'
               }`}
             >
               {chip}
@@ -196,10 +230,10 @@ function Hero({ content }) {
         </div>
       </div>
 
-      <div className="border-y-2 border-[color:var(--text)] bg-[color:var(--soft)] py-4 text-[color:var(--text)]">
+      <div className="border-y-2 border-[color:var(--text)] bg-[color:var(--section-band)] py-4 text-[color:var(--text)]">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6 lg:px-8">
           {(content.capabilities || []).map((item) => (
-            <span key={item} className="rounded-full border-2 border-[color:var(--text)] bg-[color:var(--bg)] px-4 py-2 text-sm font-black uppercase">
+            <span key={item} className="rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-pill)] px-4 py-2 text-sm font-black uppercase">
               {item}
             </span>
           ))}
@@ -210,26 +244,28 @@ function Hero({ content }) {
 }
 
 function Work({ content }) {
+  const colors = content.sectionStyles.work
+
   return (
-    <section id="work" className="bg-[color:var(--bg)] px-4 py-20 sm:px-6 lg:px-8">
+    <section id="work" className="bg-[color:var(--section-bg)] px-4 py-20 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
       <div className="mx-auto max-w-7xl">
         <SectionIntro eyebrow={content.workIntro.eyebrow} title={content.workIntro.title} body={content.workIntro.body} />
         <div className="grid gap-6 lg:grid-cols-3">
           {(content.projects || []).map((project, index) => (
             <article
               key={`${project.title}-${index}`}
-              className={`group rounded-[1.75rem] border-2 border-[color:var(--text)] bg-white p-4 shadow-[7px_7px_0_var(--text)] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_var(--text)] ${index === 1 ? 'lg:mt-8' : ''}`}
+              className={`group rounded-[1.75rem] border-2 border-[color:var(--text)] bg-[color:var(--section-card)] p-4 shadow-[7px_7px_0_var(--text)] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_var(--text)] ${index === 1 ? 'lg:mt-8' : ''}`}
             >
               <div className="slide-frame relative overflow-hidden rounded-[1.25rem] border-2 border-[color:var(--text)]" style={{ backgroundColor: project.color }}>
                 <img src={project.image} alt={`${project.title} portfolio page`} className="aspect-video w-full object-contain p-2 transition duration-500 group-hover:scale-[1.03]" />
               </div>
               <div className="pt-5">
-                <p className="text-sm font-black uppercase text-[color:var(--accent)]">{project.kicker}</p>
+                <p className="text-sm font-black uppercase text-[color:var(--section-accent)]">{project.kicker}</p>
                 <h3 className="mt-2 text-2xl font-black">{project.title}</h3>
-                <p className="mt-3 min-h-24 text-base font-semibold leading-7 text-[#51473f]">{project.copy}</p>
+                <p className="mt-3 min-h-24 text-base font-semibold leading-7 text-[color:var(--section-muted)]">{project.copy}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {(project.stats || []).map((stat) => (
-                    <span key={stat} className="rounded-full border-2 border-[color:var(--text)] bg-[color:var(--surface)] px-3 py-1 text-xs font-black uppercase">
+                    <span key={stat} className="rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-pill)] px-3 py-1 text-xs font-black uppercase">
                       {stat}
                     </span>
                   ))}
@@ -247,39 +283,41 @@ function SectionIntro({ eyebrow, title, body }) {
   return (
     <div className="mb-12 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
       <div>
-        <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--yellow)] px-4 py-2 text-sm font-black uppercase">{eyebrow}</p>
+        <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase">{eyebrow}</p>
         <h2 className="display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.9]">{title}</h2>
       </div>
-      <p className="max-w-2xl text-lg font-semibold leading-8 text-[#4c433b]">{body}</p>
+      <p className="max-w-2xl text-lg font-semibold leading-8 text-[color:var(--section-muted)]">{body}</p>
     </div>
   )
 }
 
 function PortfolioSlideWall({ content }) {
+  const colors = content.sectionStyles.slides
+
   return (
-    <section className="border-y-2 border-[color:var(--text)] bg-[color:var(--soft)] px-4 py-16 sm:px-6 lg:px-8">
+    <section className="border-y-2 border-[color:var(--text)] bg-[color:var(--section-bg)] px-4 py-16 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-white px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">
+            <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">
               {content.slideIntro.eyebrow}
             </p>
             <h2 className="display text-[clamp(2.4rem,5vw,4.8rem)] leading-[0.9]">{content.slideIntro.title}</h2>
           </div>
-          <p className="max-w-xl text-base font-semibold leading-7 text-[#51473f]">{content.slideIntro.body}</p>
+          <p className="max-w-xl text-base font-semibold leading-7 text-[color:var(--section-muted)]">{content.slideIntro.body}</p>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {(content.slides || []).map((image, index) => (
             <figure
               key={`${image.src}-${index}`}
-              className={`rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-3 shadow-[6px_6px_0_var(--text)] ${index % 3 === 1 ? 'xl:translate-y-6' : ''}`}
+              className={`rounded-[1.5rem] border-2 border-[color:var(--text)] bg-[color:var(--section-card)] p-3 shadow-[6px_6px_0_var(--text)] ${index % 3 === 1 ? 'xl:translate-y-6' : ''}`}
             >
               <div className="slide-frame aspect-video w-full rounded-[1rem]">
                 <img src={image.src} alt={image.title} className="h-full w-full object-contain p-2" />
               </div>
               <figcaption className="flex min-h-20 flex-col justify-center px-1 pt-3">
-                <span className="text-xs font-black uppercase text-[color:var(--accent)]">{image.tag}</span>
+                <span className="text-xs font-black uppercase text-[color:var(--section-accent)]">{image.tag}</span>
                 <span className="text-lg font-black">{image.title}</span>
               </figcaption>
             </figure>
@@ -291,29 +329,31 @@ function PortfolioSlideWall({ content }) {
 }
 
 function About({ content }) {
+  const colors = content.sectionStyles.about
+
   return (
-    <section id="about" className="px-4 py-20 sm:px-6 lg:px-8">
+    <section id="about" className="bg-[color:var(--section-bg)] px-4 py-20 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div className="relative">
-          <div className="rounded-[2rem] border-2 border-[color:var(--text)] bg-white p-3 shadow-[10px_10px_0_var(--text)]">
+          <div className="rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--section-image-card)] p-3 shadow-[10px_10px_0_var(--text)]">
             <div className="slide-frame aspect-video rounded-[1.35rem]">
               <img src={content.about.image} alt="About Aspen portfolio page" className="h-full w-full object-contain" />
             </div>
           </div>
-          <div className="absolute -bottom-5 left-6 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--pink)] px-5 py-3 font-black uppercase shadow-[5px_5px_0_var(--text)]">
+          <div className="absolute -bottom-5 left-6 rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-sticker)] px-5 py-3 font-black uppercase shadow-[5px_5px_0_var(--text)]">
             {content.about.sticker}
           </div>
         </div>
         <div>
-          <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-white px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">{content.about.eyebrow}</p>
+          <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase shadow-[4px_4px_0_var(--text)]">{content.about.eyebrow}</p>
           <h2 className="display text-[clamp(2.7rem,7vw,6rem)] leading-[0.9]">{content.about.title}</h2>
           {(content.about.paragraphs || []).map((paragraph) => (
-            <p key={paragraph} className="mt-5 text-lg font-semibold leading-8 text-[#4c433b]">{paragraph}</p>
+            <p key={paragraph} className="mt-5 text-lg font-semibold leading-8 text-[color:var(--section-muted)]">{paragraph}</p>
           ))}
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {(content.about.stats || []).map((stat) => (
-              <div key={stat.label} className="rounded-3xl border-2 border-[color:var(--text)] bg-white p-5 shadow-[5px_5px_0_var(--text)]">
-                <div className="display text-4xl text-[color:var(--accent)]">{stat.number}</div>
+              <div key={stat.label} className="rounded-3xl border-2 border-[color:var(--text)] bg-[color:var(--section-stat-card)] p-5 shadow-[5px_5px_0_var(--text)]">
+                <div className="display text-4xl text-[color:var(--section-accent)]">{stat.number}</div>
                 <div className="mt-2 text-sm font-black uppercase leading-5">{stat.label}</div>
               </div>
             ))}
@@ -326,16 +366,17 @@ function About({ content }) {
 
 function Toolkit({ content }) {
   const toolkit = content.toolkit
+  const colors = content.sectionStyles.toolkit
 
   return (
-    <section className="bg-[color:var(--dark)] px-4 py-20 text-[#fff9ef] sm:px-6 lg:px-8">
+    <section className="bg-[color:var(--section-bg)] px-4 py-20 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[#fff9ef] bg-[color:var(--accent)] px-4 py-2 text-sm font-black uppercase">{toolkit.eyebrow}</p>
+            <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--section-text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase">{toolkit.eyebrow}</p>
             <h2 className="display text-[clamp(2.7rem,7vw,5.8rem)] leading-[0.9]">{toolkit.title}</h2>
           </div>
-          <a href={`mailto:${content.contactEmail}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#fff9ef] bg-[color:var(--yellow)] px-6 font-black uppercase text-[color:var(--text)] transition hover:-translate-y-0.5">
+          <a href={`mailto:${content.contactEmail}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[color:var(--section-text)] bg-[color:var(--section-cta)] px-6 font-black uppercase text-[color:var(--text)] transition hover:-translate-y-0.5">
             {toolkit.cta}
             <ArrowRight size={18} />
           </a>
@@ -345,12 +386,12 @@ function Toolkit({ content }) {
           {(toolkit.items || []).map((item) => {
             const Icon = iconMap[item.icon] || Sparkles
             return (
-              <div key={item.title} className="rounded-[1.5rem] border-2 border-[#fff9ef] bg-[#302c26] p-6 transition hover:-translate-y-1">
-                <div className="mb-5 grid size-13 place-items-center rounded-full border-2 border-[#fff9ef] bg-[color:var(--pink)] text-[color:var(--text)]">
+              <div key={item.title} className="rounded-[1.5rem] border-2 border-[color:var(--section-text)] bg-[color:var(--section-card)] p-6 transition hover:-translate-y-1">
+                <div className="mb-5 grid size-13 place-items-center rounded-full border-2 border-[color:var(--section-text)] bg-[color:var(--section-icon)] text-[color:var(--text)]">
                   <Icon size={24} />
                 </div>
                 <h3 className="text-xl font-black">{item.title}</h3>
-                <p className="mt-3 font-semibold leading-7 text-[#eadfcb]">{item.text}</p>
+                <p className="mt-3 font-semibold leading-7 text-[color:var(--section-muted)]">{item.text}</p>
               </div>
             )
           })}
@@ -361,20 +402,22 @@ function Toolkit({ content }) {
 }
 
 function Experience({ content }) {
+  const colors = content.sectionStyles.experience
+
   return (
-    <section id="experience" className="px-4 py-20 sm:px-6 lg:px-8">
+    <section id="experience" className="bg-[color:var(--section-bg)] px-4 py-20 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--yellow)] px-4 py-2 text-sm font-black uppercase">{content.experience.eyebrow}</p>
+            <p className="mb-3 inline-flex rounded-full border-2 border-[color:var(--text)] bg-[color:var(--section-eyebrow)] px-4 py-2 text-sm font-black uppercase">{content.experience.eyebrow}</p>
             <h2 className="display text-[clamp(2.7rem,7vw,5.8rem)] leading-[0.9]">{content.experience.title}</h2>
-            <p className="mt-6 text-lg font-semibold leading-8 text-[#4c433b]">{content.experience.body}</p>
+            <p className="mt-6 text-lg font-semibold leading-8 text-[color:var(--section-muted)]">{content.experience.body}</p>
           </div>
 
           <div className="space-y-5">
-            <ExperienceCard icon="GraduationCap" kicker="Education" title={content.experience.education.title} text={content.experience.education.text} color="blue" />
+            <ExperienceCard icon="GraduationCap" kicker="Education" title={content.experience.education.title} text={content.experience.education.text} iconColor={colors.educationIcon} />
             {(content.experience.jobs || []).map((item) => (
-              <ExperienceCard key={`${item.years}-${item.role}`} icon={item.icon} kicker={item.years} title={item.role} text={item.place} color="pink" />
+              <ExperienceCard key={`${item.years}-${item.role}`} icon={item.icon} kicker={item.years} title={item.role} text={item.place} iconColor={colors.jobIcon} />
             ))}
           </div>
         </div>
@@ -383,18 +426,18 @@ function Experience({ content }) {
   )
 }
 
-function ExperienceCard({ icon, kicker, title, text, color }) {
+function ExperienceCard({ icon, kicker, title, text, iconColor }) {
   const Icon = iconMap[icon] || BriefcaseBusiness
   return (
-    <div className="rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-6 shadow-[7px_7px_0_var(--text)]">
+    <div className="rounded-[1.5rem] border-2 border-[color:var(--text)] bg-[color:var(--section-card)] p-6 shadow-[7px_7px_0_var(--text)]">
       <div className="flex items-start gap-4">
-        <div className={`grid size-14 shrink-0 place-items-center rounded-full border-2 border-[color:var(--text)] ${color === 'blue' ? 'bg-[color:var(--blue)]' : 'bg-[color:var(--pink)]'}`}>
+        <div className="grid size-14 shrink-0 place-items-center rounded-full border-2 border-[color:var(--text)]" style={{ backgroundColor: iconColor }}>
           <Icon size={26} />
         </div>
         <div>
-          <p className="font-black uppercase text-[color:var(--accent)]">{kicker}</p>
+          <p className="font-black uppercase text-[color:var(--section-accent)]">{kicker}</p>
           <h3 className="text-2xl font-black">{title}</h3>
-          <p className="mt-2 font-semibold leading-7 text-[#51473f]">{text}</p>
+          <p className="mt-2 font-semibold leading-7 text-[color:var(--section-muted)]">{text}</p>
         </div>
       </div>
     </div>
@@ -404,31 +447,32 @@ function ExperienceCard({ icon, kicker, title, text, color }) {
 function Contact({ content }) {
   const phoneNumber = content.contactPhone.replace(/[^+\d]/g, '')
   const whatsappUrl = content.socialLinks?.whatsapp || `https://wa.me/${phoneNumber.replace(/^\+/, '')}`
+  const colors = content.sectionStyles.contact
 
   return (
-    <section id="contact" className="bg-[color:var(--soft)] px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-10 rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--surface)] p-6 shadow-[10px_10px_0_var(--text)] md:p-10 lg:grid-cols-[1fr_0.85fr]">
+    <section id="contact" className="bg-[color:var(--section-bg)] px-4 py-20 text-[color:var(--section-text)] sm:px-6 lg:px-8" style={sectionVars(colors)}>
+      <div className="mx-auto grid max-w-7xl gap-10 rounded-[2rem] border-2 border-[color:var(--text)] bg-[color:var(--section-panel)] p-6 shadow-[10px_10px_0_var(--text)] md:p-10 lg:grid-cols-[1fr_0.85fr]">
         <div>
           <div className="mb-5 flex flex-wrap gap-3">
             {(content.contact.badges || []).map((badge, index) => (
-              <span key={badge} className={`inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--text)] px-4 py-2 font-black uppercase ${index === 0 ? 'bg-[color:var(--blue)]' : 'bg-[color:var(--pink)]'}`}>
+              <span key={badge} className="inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--text)] px-4 py-2 font-black uppercase" style={{ backgroundColor: index === 0 ? colors.badgeOne : colors.badgeTwo }}>
                 {index === 0 ? <BadgeCheck size={17} /> : <HeartHandshake size={17} />}
                 {badge}
               </span>
             ))}
           </div>
           <h2 className="display text-[clamp(3rem,8vw,7rem)] leading-[0.88]">{content.contact.title}</h2>
-          <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-[#4c433b]">{content.contact.body}</p>
+          <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-[color:var(--section-muted)]">{content.contact.body}</p>
         </div>
 
         <div className="flex flex-col justify-center gap-4">
-          <ContactCard href={`mailto:${content.contactEmail}`} icon="Mail" kicker="Email" text={content.contactEmail} color="accent" />
-          <ContactCard href={`tel:${phoneNumber}`} icon="Phone" kicker="Phone" text={content.contactPhone} color="pink" />
-          <ContactCard href={content.socialLinks?.linkedin} icon="Linkedin" kicker="LinkedIn" text="linkedin.com/in/aspenmcnealey" color="blue" />
-          <ContactCard href={whatsappUrl} icon="MessageCircle" kicker="WhatsApp" text="Message Aspen directly" color="yellow" />
+          <ContactCard href={`mailto:${content.contactEmail}`} icon="Mail" kicker="Email" text={content.contactEmail} iconColor={colors.emailIcon} cardColor={colors.card} />
+          <ContactCard href={`tel:${phoneNumber}`} icon="Phone" kicker="Phone" text={content.contactPhone} iconColor={colors.phoneIcon} cardColor={colors.card} />
+          <ContactCard href={content.socialLinks?.linkedin} icon="Linkedin" kicker="LinkedIn" text="linkedin.com/in/aspenmcnealey" iconColor={colors.linkedinIcon} cardColor={colors.card} />
+          <ContactCard href={whatsappUrl} icon="MessageCircle" kicker="WhatsApp" text="Message Aspen directly" iconColor={colors.whatsappIcon} cardColor={colors.card} />
           <div className="grid gap-4 sm:grid-cols-2">
-            <MiniCard icon="MapPin" text={content.contact.location} />
-            <MiniCard icon="Instagram" text={content.contact.social} />
+            <MiniCard icon="MapPin" text={content.contact.location} cardColor={colors.card} />
+            <MiniCard icon="Instagram" text={content.contact.social} cardColor={colors.card} />
           </div>
         </div>
       </div>
@@ -436,16 +480,16 @@ function Contact({ content }) {
   )
 }
 
-function ContactCard({ href, icon, kicker, text, color }) {
+function ContactCard({ href, icon, kicker, text, iconColor, cardColor }) {
   const Icon = iconMap[icon]
   return (
-    <a href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noreferrer' : undefined} className="group rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[6px_6px_0_var(--text)] transition hover:-translate-y-1">
+    <a href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noreferrer' : undefined} className="group rounded-[1.5rem] border-2 border-[color:var(--text)] p-5 shadow-[6px_6px_0_var(--text)] transition hover:-translate-y-1" style={{ backgroundColor: cardColor }}>
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        <div className={`grid size-13 place-items-center rounded-full border-2 border-[color:var(--text)] ${contactColorClass(color)}`}>
+        <div className="grid size-13 place-items-center rounded-full border-2 border-[color:var(--text)]" style={{ backgroundColor: iconColor }}>
           <Icon size={24} />
         </div>
         <div>
-          <p className="text-sm font-black uppercase text-[color:var(--accent)]">{kicker}</p>
+          <p className="text-sm font-black uppercase text-[color:var(--section-accent)]">{kicker}</p>
           <p className="break-all text-lg font-black sm:text-xl">{text}</p>
         </div>
       </div>
@@ -453,17 +497,10 @@ function ContactCard({ href, icon, kicker, text, color }) {
   )
 }
 
-function contactColorClass(color) {
-  if (color === 'accent') return 'bg-[color:var(--accent)] text-white'
-  if (color === 'blue') return 'bg-[color:var(--blue)]'
-  if (color === 'yellow') return 'bg-[color:var(--yellow)]'
-  return 'bg-[color:var(--pink)]'
-}
-
-function MiniCard({ icon, text }) {
+function MiniCard({ icon, text, cardColor }) {
   const Icon = iconMap[icon]
   return (
-    <div className="rounded-[1.5rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[6px_6px_0_var(--text)]">
+    <div className="rounded-[1.5rem] border-2 border-[color:var(--text)] p-5 shadow-[6px_6px_0_var(--text)]" style={{ backgroundColor: cardColor }}>
       <Icon className="mb-3" />
       <p className="font-black">{text}</p>
     </div>
@@ -501,7 +538,7 @@ function PublicSite({ content }) {
         <Experience content={content} />
         <Contact content={content} />
       </main>
-      <footer className="border-t-2 border-[color:var(--text)] bg-[color:var(--text)] px-4 py-8 text-[#fff9ef] sm:px-6 lg:px-8">
+      <footer className="border-t-2 border-[color:var(--text)] px-4 py-8 sm:px-6 lg:px-8" style={{ backgroundColor: content.sectionStyles.footer.background, color: content.sectionStyles.footer.text }}>
         <div className="mx-auto flex max-w-7xl flex-col gap-4 text-sm font-bold uppercase md:flex-row md:items-center md:justify-between">
           <p>{content.navName} Portfolio</p>
           <div className="flex flex-wrap gap-4">
@@ -679,12 +716,16 @@ function AdminPanel({ content, setContent }) {
               <ImageField label="Hero featured image" value={draft.hero.featureImage} media={media} token={token} onUploaded={(file) => setMedia((items) => [file, ...items])} onChange={(value) => update(['hero', 'featureImage'], value)} />
             </EditorSection>
 
-            <EditorSection title="Colors">
+            <EditorSection title="Global colors">
               <div className="grid gap-4 sm:grid-cols-3">
                 {Object.keys(draft.theme).map((key) => (
                   <ColorField key={key} label={key} value={draft.theme[key]} onChange={(value) => update(['theme', key], value)} />
                 ))}
               </div>
+            </EditorSection>
+
+            <EditorSection title="Section colors">
+              <SectionColorEditor styles={draft.sectionStyles} onChange={(section, key, value) => update(['sectionStyles', section, key], value)} />
             </EditorSection>
 
             <EditorSection title="Work section">
@@ -836,6 +877,28 @@ function PasswordEditor({ token, user }) {
   )
 }
 
+function SectionColorEditor({ styles, onChange }) {
+  return (
+    <div className="space-y-5">
+      {Object.entries(styles || {}).map(([section, values]) => (
+        <div key={section} className="rounded-2xl border-2 border-[color:var(--text)] bg-[color:var(--surface)] p-4">
+          <h3 className="mb-4 text-lg font-black capitalize">{section} colors</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {Object.entries(values || {}).map(([key, value]) => (
+              <ColorField
+                key={`${section}-${key}`}
+                label={humanizeKey(key)}
+                value={value}
+                onChange={(nextValue) => onChange(section, key, nextValue)}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function EditorSection({ title, children }) {
   return (
     <section className="rounded-[2rem] border-2 border-[color:var(--text)] bg-white p-5 shadow-[7px_7px_0_var(--text)]">
@@ -843,6 +906,10 @@ function EditorSection({ title, children }) {
       <div className="space-y-4">{children}</div>
     </section>
   )
+}
+
+function humanizeKey(key) {
+  return key.replace(/([A-Z])/g, ' $1').replace(/^./, (letter) => letter.toUpperCase())
 }
 
 function Field({ label, value, onChange, rows = 1, type = 'text' }) {
