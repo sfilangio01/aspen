@@ -545,6 +545,7 @@ function PublicSite({ content }) {
             <span className="inline-flex items-center gap-1"><Star size={15} /> Creative marketing</span>
             <span className="inline-flex items-center gap-1"><WandSparkles size={15} /> Branding</span>
             <span className="inline-flex items-center gap-1"><Sparkles size={15} /> Talent-minded</span>
+            <a className="normal-case underline decoration-2 underline-offset-4 transition hover:opacity-70" href="https://vfwebsolutions.com" target="_blank" rel="noreferrer">Powered by vfwebsolutions</a>
           </div>
         </div>
       </footer>
